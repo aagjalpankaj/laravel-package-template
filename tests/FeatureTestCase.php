@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use Aagjalpankaj\LaravelPackageTemplate\Logger;
 use Aagjalpankaj\LaravelPackageTemplate\ServiceProvider;
 use Illuminate\Contracts\Config\Repository;
 use Orchestra\Testbench\TestCase;
@@ -15,24 +14,13 @@ abstract class FeatureTestCase extends TestCase
     {
         $app['env'] = 'local';
 
-        tap($app['config'], function (Repository $config) {
-
-            $config->set('logging.channels.single', [
-                'driver' => 'single',
-                'tap' => [Logger::class],
-                'path' => storage_path('logs/laravel.log'),
-                'level' => env('LOG_LEVEL', 'debug'),
-                'replace_placeholders' => true,
-            ]);
-
-            $config->set('logging.default', 'single');
-        });
+        tap($app['config'], function (Repository $config) {});
     }
 
     protected function defineRoutes($router): void
     {
         $router->get('/', function () {
-            return response()->json(['message' => 'Welcome to Laravel Log Validator']);
+            return response()->json(['message' => 'Welcome']);
         })->name('home');
     }
 
